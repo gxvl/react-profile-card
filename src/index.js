@@ -2,23 +2,46 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
+const skillData = [
+  {
+    name: "HTML + CSS",
+    level: "advanced",
+    color: "yellow",
+  },
+  {
+    name: "React",
+    level: "beginner",
+    color: "blue",
+  },
+  {
+    name: "Java",
+    level: "beginner",
+    color: "red",
+  },
+  {
+    name: "Figma",
+    level: "intermediate",
+    color: "purple",
+  },
+];
+
 function App() {
   return (
     <div className="card">
       <Avatar />
       <div className="data">
         <Intro
-          name="Takai Gonçalves Lima"
-          paragraph="Oi, meu nome é Takai, tenho 8 anos e sou um Akita. Infelizmente não sei ler tampouco programar, mas minhas habilidades são as seguintes: "
+          name="Geraldo Gonçalves Lima"
+          paragraph="Estudante de BCC da UFRPE, 20 anos, quinto período. Skateboard Charlie Brown Jr. Tic tac prey miauu "
         />
-        <SkillList></SkillList>
+        <SkillList />
       </div>
     </div>
   );
 }
 
 function Avatar() {
-  return <img className="avatar" src="takai.jpg" alt="foto-avatar" />;
+  return <img className="avatar" src="eu.jpg" alt="foto-avatar" />;
 }
 
 function Intro(props) {
@@ -31,20 +54,34 @@ function Intro(props) {
 }
 
 function SkillList() {
+  const numSkills = skillData.length;
+
   return (
     <div className="skill-list">
-      <Skill skill="Correr" emoji="🏃" color="cyan" />
-      <Skill skill="Brincar" emoji="🪀" color="yellow" />
-      <Skill skill="Mimir" emoji="😴" color="orange" />
+      {numSkills > 0 ? (
+        <>
+          {skillData.map((skill) => (
+            <Skill
+              name={skill.name}
+              level={skill.level}
+              color={skill.color}
+            ></Skill>
+          ))}
+        </>
+      ) : (
+        <p>blud got no skills at all 💀</p>
+      )}
     </div>
   );
 }
 
-function Skill(props) {
+function Skill({ name, color, level }) {
   return (
-    <div style={{ backgroundColor: props.color }} className="skill">
-      <span>{props.skill}</span>
-      <span>{props.emoji}</span>
+    <div style={{ backgroundColor: color }} className="skill">
+      <span>{name}</span>
+      <span>{level === "beginner" && "👶"}</span>
+      <span>{level === "intermediate" && "👍"}</span>
+      <span>{level === "advanced" && "💪"}</span>
     </div>
   );
 }
